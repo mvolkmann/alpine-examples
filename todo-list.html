@@ -58,7 +58,7 @@
           <input
             type="checkbox"
             :checked="todo.done"
-            @change="todo.done = !todo.done; updateStatus()"
+            @change="todo.done = !todo.done"
           />
           <span :class="{done: todo.done}" x-text="todo.text"></span>
           <button @click="deleteTodo(todo.id)">Delete</button>
