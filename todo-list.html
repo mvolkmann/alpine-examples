@@ -22,7 +22,7 @@
       });
 
       function addTodo(text) {
-        data.todos.push(createTodo(text));
+        data.todos.push({ id: ++lastId, text, done: false });
         updateStatus();
       }
 
@@ -30,10 +30,6 @@
       function archiveCompleted() {
         data.todos = data.todos.filter((t) => !t.done);
         updateStatus();
-      }
-
-      function createTodo(text, done = false) {
-        return { id: ++lastId, text, done };
       }
 
       function deleteTodo(todoId) {
