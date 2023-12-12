@@ -7,28 +7,27 @@
     ></script>
 
     <script>
-      let lastId = 2;
+      let data;
+      let lastId = 0;
 
       document.addEventListener("alpine:init", () => {
         Alpine.store("data", {
           status: "",
           todos: [],
         });
+        data = Alpine.store("data");
         addTodo("buy milk");
         addTodo("cut grass");
         updateStatus();
       });
 
       function addTodo(text) {
-        console.log("todo-list.html addTodo: text =", text);
-        const data = Alpine.store("data");
         data.todos.push(createTodo(text));
         updateStatus();
       }
 
       // This keeps all the todos that are not done.
       function archiveCompleted() {
-        const data = Alpine.store("data");
         data.todos = data.todos.filter((t) => !t.done);
         updateStatus();
       }
@@ -38,16 +37,13 @@
       }
 
       function deleteTodo(todoId) {
-        const data = Alpine.store("data");
         data.todos = data.todos.filter((t) => t.id !== todoId);
         updateStatus();
       }
 
       function updateStatus() {
-        const data = Alpine.store("data");
-        const { todos } = data;
-        const uncompletedCount = todos.filter((t) => !t.done).length;
-        data.status = `${uncompletedCount} of ${todos.length} remaining`;
+        const uncompletedCount = data.todos.filter((t) => !t.done).length;
+        data.status = `${uncompletedCount} of ${data.todos.length} remaining`;
       }
     </script>
   </head>
