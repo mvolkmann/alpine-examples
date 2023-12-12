@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <!-- The plugin must be loaded before Alpine.js. -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <script>
+    // This returns a string like "April 16, 1961".
+    const formatDate = (date) =>
+      new Date(date).toLocaleDateString("default", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      });
+  </script>
+  <body x-data="{date: '', placeholder: 'MM/DD/YYYY'}">
+    <input
+      :placeholder="placeholder"
+      size="12"
+      x-mask="99/99/9999"
+      x-model="date"
+    />
+    <div x-show="date.length == placeholder.length">
+      You entered <span x-text="formatDate(date)"></span>.
+    </div>
+  </body>
+</html>

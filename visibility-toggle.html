@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <div x-data="{open: false}">
+      <button @click="open = !open">Toggle</button>
+      <div x-show="open">Hello, World!</div>
+    </div>
+  </body>
+</html>

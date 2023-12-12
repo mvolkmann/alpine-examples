@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script defer>
+      document.addEventListener("alpine:init", () => {
+        Alpine.store("number", 19);
+        Alpine.store("colors", ["red", "green", "blue"]);
+        Alpine.store("profile", {
+          id: 19,
+          username: "mvolkmann",
+          role: "admin",
+        });
+        Alpine.store("data", {
+          todos: [
+            { id: 1, text: "Learn JavaScript", completed: true },
+            { id: 2, text: "Learn Alpine.js", completed: false },
+          ],
+        });
+      });
+    </script>
+  </head>
+  <body x-data>
+    <h1 x-data="{ message: 'I ❤️ Alpine' }" x-text="message"></h1>
+
+    <h2>Primitive</h2>
+    <div>Number: <span x-text="$store.number"></span></div>
+
+    <h2>Colors</h2>
+    <ul>
+      <template x-for="color in $store.colors">
+        <li x-text="color"></li>
+      </template>
+    </ul>
+
+    <h2>Object</h2>
+    <div>Username: <span x-text="$store.profile.username"></span></div>
+    <div>Role: <span x-text="$store.profile.role"></span></div>
+
+    <h2>Array of Objects</h2>
+    <ul>
+      <template x-for="todo in $store.data.todos">
+        <li x-text="todo.text"></li>
+      </template>
+    </ul>
+  </body>
+</html>

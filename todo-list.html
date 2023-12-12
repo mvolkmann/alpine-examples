@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      button {
+        margin-left: 1rem;
+      }
+      .done {
+        color: gray;
+        text-decoration: line-through;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      li {
+        margin-top: 0.5rem;
+      }
+      .plain {
+        border: none;
+      }
+      ul {
+        list-style: none; /* removes bullets */
+        margin-left: 0;
+        padding-left: 0;
+      }
+    </style>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <script>
+      let lastId = 2;
+
+      document.addEventListener("alpine:init", () => {
+        Alpine.store("data", {
+          todos: [
+            { id: 1, text: "buy milk", done: true },
+            { id: 2, text: "cut grass", done: false },
+          ],
+          todoText: "",
+        });
+      });
+
+      function addTodo(text) {
+        console.log("todo-list.html addTodo: text =", text);
+        const data = Alpine.store("data");
+        data.todos.push(createTodo(text));
+        console.log("todo-list.html addTodo: todos =", data.todos);
+        // data.todoText = ""; // clears the input
+      }
+
+      // This keeps all the todos that are not done.
+      function archiveCompleted() {
+        const data = Alpine.store("data");
+        data.todos = data.todos.filter((t) => !t.done);
+      }
+
+      function createTodo(text, done = false) {
+        return { id: ++lastId, text, done };
+      }
+
+      function deleteTodo(todoId) {
+        const data = Alpine.store("data");
+        data.todos = data.todos.filter((t) => t.id !== todoId);
+      }
+
+      function getStatus() {
+        console.log("todo-list.html getStatus: $store =", $store);
+        const { todos } = Alpine.store("data");
+        const uncompletedCount = todos.filter((t) => !t.done).length;
+        return `${uncompletedCount} of ${todos.length} remaining`;
+      }
+
+      /*
+      let todos = [
+        createTodo('learn Svelte', true),
+        createTodo('build a Svelte app')
+      ];
+      */
+    </script>
+  </head>
+  <!-- <body x-data="{lastId: 0, todos: [], todoText: ''}"> -->
+  <body>
+    <h1>To Do List</h1>
+    <div>
+      <span x-text="getStatus()"></span>
+      <button on:click="{archiveCompleted}">Archive Completed</button>
+    </div>
+    <form x-data="{text: ''}" x-on:submit.prevent="addTodo(text)">
+      <input placeholder="enter new todo here" size="30" x-model="text" />
+      <button :disabled="!text">Add</button>
+    </form>
+    <div>todos = <span x-text="JSON.stringify($store.data.todos)"></span></div>
+    <ul x-for="todo in $store.data.todos">
+      <li x-transition>
+        <input
+          type="checkbox"
+          x-bind:checked="todo.done"
+          x-on:change="todo.done = !todo.done"
+        />
+        <span x-bind:class:done="todo.done" x-text="todo.text"></span>
+        <button class="plain" x-on:click="deleteTodo(todo.id)">🗑</button>
+      </li>
+    </ul>
+  </body>
+</html>
