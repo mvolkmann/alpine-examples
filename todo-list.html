@@ -19,46 +19,49 @@
 
       function addTodo(text) {
         data.todos.push({ id: ++lastId, text, done: false });
-        updateStatus();
       }
 
       // This keeps only the todos that are not done.
       function archiveCompleted() {
         data.todos = data.todos.filter((t) => !t.done);
-        updateStatus();
       }
 
       function deleteTodo(todoId) {
         data.todos = data.todos.filter((t) => t.id !== todoId);
-        updateStatus();
       }
 
-      function updateStatus() {
-        const uncompletedCount = data.todos.filter((t) => !t.done).length;
-        data.status = `${uncompletedCount} of ${data.todos.length} remaining`;
+      function updateStatus(todos) {
+        const uncompletedCount = todos.filter((t) => !t.done).length;
+        data.status = `${uncompletedCount} of ${todos.length} remaining`;
       }
     </script>
   </head>
-  <body x-data>
+  <body x-data x-effect="updateStatus(data.todos)">
     <h1>To Do List</h1>
     <div>
       <span x-text="data.status"></span>
       <button @click="archiveCompleted">Archive Completed</button>
     </div>
     <form x-data="{text: ''}" @submit.prevent="addTodo(text); text = ''">
-      <input placeholder="enter new todo here" size="30" x-model="text" />
+      <input
+        autofocus
+        placeholder="enter new todo here"
+        size="30"
+        type="text"
+        x-model="text"
+      />
       <button :disabled="!text">Add</button>
     </form>
     <ul>
       <template x-for="todo in data.todos">
-        <li x-transition>
+        <li class="todo-row" x-transition>
           <input
             type="checkbox"
             :checked="todo.done"
             @change="todo.done = !todo.done; updateStatus()"
           />
           <span :class="{done: todo.done}" x-text="todo.text"></span>
-          <button class="plain" @click="deleteTodo(todo.id)">🗑</button>
+          <button @click="deleteTodo(todo.id)">Delete</button>
         </li>
       </template>
     </ul>
