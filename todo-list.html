@@ -11,12 +11,8 @@
       let lastId = 0;
 
       document.addEventListener("alpine:init", () => {
-        Alpine.store("data", {
-          status: "",
-          todos: [],
-        });
+        Alpine.store("data", { status: "", todos: [] });
         data = Alpine.store("data");
-
         addTodo("buy milk");
         addTodo("cut grass");
       });
@@ -26,7 +22,7 @@
         updateStatus();
       }
 
-      // This keeps all the todos that are not done.
+      // This keeps only the todos that are not done.
       function archiveCompleted() {
         data.todos = data.todos.filter((t) => !t.done);
         updateStatus();
@@ -46,7 +42,7 @@
   <body x-data>
     <h1>To Do List</h1>
     <div>
-      <span x-text="$store.data.status"></span>
+      <span x-text="data.status"></span>
       <button @click="archiveCompleted">Archive Completed</button>
     </div>
     <form x-data="{text: ''}" @submit.prevent="addTodo(text); text = ''">
@@ -54,7 +50,7 @@
       <button :disabled="!text">Add</button>
     </form>
     <ul>
-      <template x-for="todo in $store.data.todos">
+      <template x-for="todo in data.todos">
         <li x-transition>
           <input
             type="checkbox"
