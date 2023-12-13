@@ -4,16 +4,12 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    <script>
-      function handleClick(event) {
-        if (event.target.localName === "dialog") {
-          event.target.close();
-        }
-      }
-    </script>
   </head>
   <body>
-    <div x-data @click="handleClick">
+    <div
+      x-data
+      @click="if ($event.target.nodeName === 'DIALOG') $event.target.close()"
+    >
       <button @click="$refs.myDialog.showModal()">Open Dialog</button>
       <!-- We are adjusting margins and padding so the
            form entirely fills the dialog, making all clicks
