@@ -8,7 +8,13 @@
   <body>
     <div x-data="{open: false}">
       <button @click="open = !open">Toggle</button>
-      <div x-show="open">Hello, World!</div>
+      <div
+        style="font-size: 3rem"
+        x-show="open"
+        x-transition.opacity.duration.1000ms
+      >
+        Hello, World!
+      </div>
     </div>
   </body>
 </html>
