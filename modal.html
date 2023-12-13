@@ -1,0 +1,26 @@
+<html lang="en">
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script>
+      function handleClick(event) {
+        if (event.target.localName === "dialog") {
+          event.target.close();
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div x-data="{dialogOpen: false}" @click="handleClick">
+      <button @click="$refs.myDialog.showModal()">Open Dialog</button>
+      <dialog style="padding: 0" x-ref="myDialog">
+        <form method="dialog" style="margin: 0; padding: 1rem">
+          <p style="margin-top: 0">This is the dialog content.</p>
+          <button>OK</button>
+        </form>
+      </dialog>
+    </div>
+  </body>
+</html>

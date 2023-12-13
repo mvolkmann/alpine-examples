@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <div
+      x-data="{
+        addDog() {
+          this.dogs.push({
+            id: this.dogs.length + 1,
+            name: 'Goofy',
+            breed: 'Bloodhound',
+          })
+        },
+        dogs: [
+          {id: 1, name: 'Maisey', breed: 'Treeing Walker Coonhound'},
+          {id: 2, name: 'Ramsay', breed: 'Native American Indian Dog'},
+          {id: 3, name: 'Oscar', breed: 'German Shorthaired Pointer'},
+          {id: 4, name: 'Comet', breed: 'Whippet'},
+        ],
+        getSortedDogs() {
+          return this.dogs.sort((a, b) => a.name.localeCompare(b.name))
+        }
+      }"
+    >
+      <template x-for="dog in getSortedDogs()" :key="dog.id">
+        <div x-text="`${dog.name} is a ${dog.breed}.`"></div>
+      </template>
+      <button @click="addDog">Add Dog</button>
+    </div>
+  </body>
+</html>
