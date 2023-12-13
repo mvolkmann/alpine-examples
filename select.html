@@ -11,7 +11,9 @@
         <select x-model="selectedColor">
           <option value="">Select a color</option>
           <template x-for="color in colors">
-            <option :value="color" x-text="color"></option>
+            <!-- <option :value="color" x-text="color"></option> -->
+            <!-- The value of each option defaults to its text. -->
+            <option x-text="color"></option>
           </template>
         </select>
         <span x-show="selectedColor">
@@ -24,7 +26,7 @@
            cmd or shift before clicking another. -->
         <select multiple x-model="selectedColors">
           <template x-for="color in colors">
-            <option :value="color" x-text="color"></option>
+            <option x-text="color"></option>
           </template>
         </select>
         <span x-show="selectedColors.length">
