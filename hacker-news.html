@@ -18,7 +18,7 @@
           const json = await response.json();
           data.results = json.hits;
         } catch (e) {
-          if (!data.error) data.error = e.message;
+          data.error = e.message;
         }
       }
     </script>
