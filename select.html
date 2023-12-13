@@ -7,7 +7,7 @@
   </head>
   <body>
     <div
-      x-data="{colors: ['red', 'green', 'blue'], selectedColor: '', selectedColors: []}"
+      x-data="{colors: ['red', 'green', 'blue'], foo: '', selectedColor: '', selectedColors: []}"
     >
       <select x-model="selectedColor">
         <option value="">Select a color</option>
@@ -19,7 +19,10 @@
         You selected <span x-text="selectedColor"></span>.
       </div>
 
-      <select style="display: block" multiple x-model="selectedColors">
+      <br />
+      <!-- After selecting the first color, hold down
+           cmd or shift before clicking another. -->
+      <select multiple x-model="selectedColors">
         <template x-for="color in colors">
           <option :value="color" x-text="color"></option>
         </template>
