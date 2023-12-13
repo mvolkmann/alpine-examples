@@ -8,7 +8,10 @@
   <body>
     <div
       x-data
+      // This handles all dialogs.
       @click="if ($event.target.nodeName === 'DIALOG') $event.target.close()"
+      // This only handles a specific dialog.
+      // @click="if ($event.target === $refs.myDialog) $event.target.close()"
     >
       <button @click="$refs.myDialog.showModal()">Open Dialog</button>
       <!-- We are adjusting margins and padding so the
