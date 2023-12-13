@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <style>
+      .large {
+        font-size: 2rem;
+      }
+      .primary {
+        border: none;
+        background-color: cornflowerblue;
+        color: white;
+        padding: 0.5rem;
+      }
+      .shout {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .whisper {
+        color: lightgray;
+        text-transform: lowercase;
+      }
+    </style>
+  </head>
+  <body>
+    <div x-data="{important: false, score: 9}">
+      <button
+        class="primary"
+        :class="important ? 'shout' : 'whisper'"
+        @click="important = !important"
+      >
+        Toggle
+      </button>
+      <p :class="{shout: score > 10, large: score > 15}">TEST</p>
+    </div>
+  </body>
+</html>

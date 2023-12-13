@@ -10,6 +10,9 @@
       <template x-for="color in colors">
         <div x-text="color"></div>
       </template>
+      <template x-for="color, index in colors">
+        <div x-text="`${index + 1}) ${color}`"></div>
+      </template>
     </div>
   </body>
 </html>
