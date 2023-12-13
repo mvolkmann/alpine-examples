@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <div
+      x-data="{colors: ['red', 'green', 'blue'], selectedColor: '', selectedColors: []}"
+    >
+      <select x-model="selectedColor">
+        <option value="">Select a color</option>
+        <template x-for="color in colors">
+          <option :value="color" x-text="color"></option>
+        </template>
+      </select>
+      <div x-show="selectedColor">
+        You selected <span x-text="selectedColor"></span>.
+      </div>
+
+      <select style="display: block" multiple x-model="selectedColors">
+        <template x-for="color in colors">
+          <option :value="color" x-text="color"></option>
+        </template>
+      </select>
+      <div x-show="selectedColors.length">
+        You selected <span x-text="selectedColors"></span>.
+      </div>
+    </div>
+  </body>
+</html>

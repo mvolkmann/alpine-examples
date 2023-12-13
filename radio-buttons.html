@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <div x-data="{colors: ['red', 'green', 'blue'], selectedColor: ''}">
+      <template x-for="color in colors">
+        <div style="display: flex; align-items: center">
+          <input type="radio" :value="color" x-model="selectedColor" />
+          <span x-text="color"></span>
+        </div>
+      </template>
+      <div x-show="selectedColor">
+        You selected <span x-text="selectedColor"></span>.
+      </div>
+    </div>
+  </body>
+</html>
