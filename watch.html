@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script>
+      const data = {
+        dog: { name: "Comet", breed: "Whippet" },
+        password: "",
+        scores: [7, 10],
+      };
+
+      function configureWatches(data) {
+        data.$watch("dog", (value) => {
+          alert("dog is now " + JSON.stringify(value));
+        });
+
+        data.$watch("password", (value) => {
+          if (value.startsWith("pass")) {
+            alert("Bad password!");
+          }
+        });
+
+        data.$watch("scores", (value) => {
+          alert("scores are now " + JSON.stringify(value));
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div x-data="data" x-init="configureWatches($data)">
+      <label>
+        Password
+        <input autofocus size="20" type="password" x-model="password" />
+      </label>
+      <button @click="dog.breed = 'Greyhound'">Change Dog</button>
+      <button @click="scores[0] = 19">Change Score</button>
+    </div>
+  </body>
+</html>
