@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <style>
+      button.plain {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: none;
+      }
+      .copied {
+        color: green;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    </style>
+    <script>
+      function copy(input, data) {
+        navigator.clipboard.writeText(input.value);
+        data.copied = true;
+        setTimeout(() => (data.copied = false), 1000);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="row" x-data="{copied: false}">
+      <input size="20" type="text" x-ref="input" />
+      <button class="plain" @click="copy($refs.input, $data)">📋</button>
+      <div class="copied" x-show="copied">✓</div>
+    </div>
+  </body>
+</html>
