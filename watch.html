@@ -11,25 +11,25 @@
         scores: [7, 10],
       };
 
-      function configureWatches(data) {
-        data.$watch("dog", (value) => {
+      function configureWatches(watch) {
+        watch("dog", (value) => {
           alert("dog is now " + JSON.stringify(value));
         });
 
-        data.$watch("password", (value) => {
+        watch("password", (value) => {
           if (value.startsWith("pass")) {
             alert("Bad password!");
           }
         });
 
-        data.$watch("scores", (value) => {
+        watch("scores", (value) => {
           alert("scores are now " + JSON.stringify(value));
         });
       }
     </script>
   </head>
   <body>
-    <div x-data="data" x-init="configureWatches($data)">
+    <div x-data="data" x-init="configureWatches($watch)">
       <label>
         Password
         <input autofocus size="20" type="password" x-model="password" />
