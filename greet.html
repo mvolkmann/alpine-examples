@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body x-data="{ name: $persist('World').using(sessionStorage) }">
+    <input autofocus size="20" type="text" x-model="name" />
+    <div>Hello, <span x-text="name"></span>!</div>
+  </body>
+</html>
