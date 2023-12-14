@@ -3,20 +3,20 @@
     <title>Include Demo</title>
     <script>
       function includeHTML() {
-        // Find the first element that contains the w3-include-html attribute.
-        const element = document.querySelector("[w3-include-html");
+        // Find the first element that contains the include attribute.
+        const element = document.querySelector("[include");
         if (!element) return; // no more found
 
         const xhr = new XMLHttpRequest();
         xhr.onload = () => {
           element.innerHTML = xhr.responseText;
-          element.removeAttribute("w3-include-html");
+          element.removeAttribute("include");
           // Make a recursive call to process remaining elements
           // with the w3-include-html attribute.
           includeHTML();
         };
 
-        const file = element.getAttribute("w3-include-html");
+        const file = element.getAttribute("include");
         xhr.open("GET", file, true);
         xhr.send();
       }
@@ -24,10 +24,9 @@
   </head>
   <body>
     <h1>Include Demo</h1>
-    <div
-      w3-include-html="http://localhost:5500/include-html/include1.html"
-    ></div>
-    <p>bottom of page</p>
+    <div include="http://localhost:5500/include-html/include1.html"></div>
+    <p>own content</p>
+    <div include="http://localhost:5500/include-html/include2.html"></div>
     <script>
       includeHTML();
     </script>
