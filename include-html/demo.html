@@ -2,6 +2,10 @@
   <head>
     <title>Include Demo</title>
     <script>
+      const { href } = location;
+      const lastSlashIndex = href.lastIndexOf("/");
+      const urlPrefix = href.substring(0, lastSlashIndex + 1);
+
       function includeHTML() {
         // Find the first element that contains the include attribute.
         const element = document.querySelector("[include");
@@ -17,16 +21,16 @@
         };
 
         const file = element.getAttribute("include");
-        xhr.open("GET", file, true);
+        xhr.open("GET", urlPrefix + file, true);
         xhr.send();
       }
     </script>
   </head>
   <body>
     <h1>Include Demo</h1>
-    <div include="http://localhost:5500/include-html/include1.html"></div>
+    <div include="include1.html"></div>
     <p>own content</p>
-    <div include="http://localhost:5500/include-html/include2.html"></div>
+    <div include="include2.html"></div>
     <script>
       includeHTML();
     </script>
