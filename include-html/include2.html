@@ -1,1 +1,7 @@
-<p>second included content</p>
+<div x-data="{colors: ['red', 'green', 'blue']}">
+  <ol>
+    <template x-for="color in colors">
+      <li x-text="color"></li>
+    </template>
+  </ol>
+</div>
