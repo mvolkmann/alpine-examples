@@ -1,10 +1,12 @@
 <html lang="en">
   <head>
     <title>Include Demo</title>
+    <!-- All included "components" can also use Alpine. -->
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
+    <!-- This adds support for the "x-include" attribute. -->
     <script src="include.js"></script>
   </head>
   <body x-data="{show: true}">
@@ -14,16 +16,15 @@
       <span x-show="show">
         <!-- The file greeting.html defines a component.
              We can pass scoped data to it using x-data. -->
-        <span include="greeting.html" x-data="{name: 'World'}"></span>
-        <!-- This shows that "name" is not available
-             outside the previous component. -->
-        <div>name = <span x-text="name"></span></div>
+        <span x-include="greeting.html" x-data="{name: 'World'}"></span>
       </span>
     </div>
 
     <!-- The file colors.html defines a component.
-         We can pass scoped data to it using x-data. -->
-    <div include="colors.html"></div>
-    <div include="colors.html" x-data="{upper: true}"></div>
+         We can pass scoped data to it using x-data.
+        The file will only be loaded once even though
+        we "include" it multiple times. -->
+    <div x-include="colors.html"></div>
+    <div x-include="colors.html" x-data="{upper: true}"></div>
   </body>
 </html>
