@@ -1,7 +1,8 @@
 <div x-data="{colors: ['red', 'green', 'blue']}">
   <ol>
     <template x-for="color in colors">
-      <!-- Using $data.upper instead of just upper works when upper is not defined. -->
+      <!-- Using $data.upper instead of just upper
+           works when upper is not defined. -->
       <li x-text="$data.upper ? color.toUpperCase() : color"></li>
     </template>
   </ol>

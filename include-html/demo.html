@@ -6,7 +6,6 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    <!-- This adds support for the "x-include" attribute. -->
     <script src="x-include.js"></script>
   </head>
   <body x-data="{show: true}">
@@ -22,8 +21,8 @@
 
     <!-- The file colors.html defines a component.
          We can pass scoped data to it using x-data.
-        The file will only be loaded once even though
-        we "include" it multiple times. -->
+         The file will only be loaded once even though
+         we "include" it multiple times. -->
     <div x-include="colors.html"></div>
     <div x-include="colors.html" x-data="{upper: true}"></div>
   </body>
