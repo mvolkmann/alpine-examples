@@ -5,39 +5,24 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    <script>
-      const { href } = location;
-      const lastSlashIndex = href.lastIndexOf("/");
-      const urlPrefix = href.substring(0, lastSlashIndex + 1);
-
-      function includeHTML() {
-        // Find the first element that contains the include attribute.
-        const element = document.querySelector("[include");
-        if (!element) return; // no more found
-
-        const xhr = new XMLHttpRequest();
-        xhr.onload = () => {
-          element.innerHTML = xhr.responseText;
-          element.removeAttribute("include");
-          // Make a recursive call to process remaining elements
-          // with the w3-include-html attribute.
-          includeHTML();
-        };
-
-        const file = element.getAttribute("include");
-        xhr.open("GET", urlPrefix + file, true);
-        xhr.send();
-      }
-
-      window.onload = includeHTML;
-    </script>
+    <script src="include.js"></script>
   </head>
   <body x-data="{show: true}">
     <h1>Include Demo</h1>
-    <button @click="show = !show">Toggle</button>
-    <div x-show="show">
-      <div include="greeting.html" x-data="{name: 'World'}"></div>
+    <div style="display: flex; gap: 1rem">
+      <button @click="show = !show">Toggle</button>
+      <span x-show="show">
+        <!-- The file greeting.html defines a component.
+             We can pass scoped data to it using x-data. -->
+        <span include="greeting.html" x-data="{name: 'World'}"></span>
+        <!-- This shows that "name" is not available
+             outside the previous component. -->
+        <div>name = <span x-text="name"></span></div>
+      </span>
     </div>
+
+    <!-- The file colors.html defines a component.
+         We can pass scoped data to it using x-data. -->
     <div include="colors.html"></div>
     <div include="colors.html" x-data="{upper: true}"></div>
   </body>
