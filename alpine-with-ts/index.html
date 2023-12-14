@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="app">Hello Alpine!</div>
+    <div x-data="{colors: ['red', 'green', 'blue'], selectedColors: []}">
+      <template x-for="color in colors">
+        <div style="display: flex; align-items: center">
+          <input type="checkbox" :value="color" x-model="selectedColors" />
+          <span x-text="color"></span>
+        </div>
+      </template>
+      <div x-show="selectedColors.length">
+        You selected <span x-text="selectedColors"></span>.
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
