@@ -32,12 +32,13 @@
       window.onload = includeHTML;
     </script>
   </head>
-  <body x-data="{show: false}">
+  <body x-data="{show: true}">
     <h1>Include Demo</h1>
     <button @click="show = !show">Toggle</button>
     <div x-show="show">
-      <div include="include1.html"></div>
+      <div include="greeting.html" x-data="{name: 'World'}"></div>
     </div>
-    <div include="include2.html"></div>
+    <div include="colors.html"></div>
+    <div include="colors.html" x-data="{upper: true}"></div>
   </body>
 </html>
