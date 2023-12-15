@@ -31,20 +31,29 @@
 <!-- TODO: I don't like that there is so much JS in a string! -->
 <div
   class="progress-bg"
-  :style="`background-color: ${bgColor || 'gray'}`"
+  :style="`background-color: ${typeof bgColor === 'undefined' ? 'gray' : bgColor}`"
   x-data="{
     getBarStyle() {
+      this.validate();
       const barColor =
         typeof low !== 'undefined' && lowColor && value <= low ? lowColor :
         typeof high !== 'undefined' && highColor && value >= high ? highColor :
-        color || 'green';
+        typeof color === 'undefined' ? 'green' : color;
       return `background-color: ${barColor}; width: ${this.getPercent()}%`;
     },
     getPercent() {
-      return Math.round((value - min) / (max - min) * 100);
+      this.validate();
+      const minimum = typeof min === 'undefined' ? 0 : min;
+      const maximum = typeof max === 'undefined' ? 100 : max;
+      return Math.round((value - minimum) / (maximum - minimum) * 100);
     },
     init() {
       ProgressBar();
+    },
+    validate() {
+      if (typeof value === 'undefined') {
+        throw new Error('progress-bar requires value');
+      }
     }
   }"
 >
