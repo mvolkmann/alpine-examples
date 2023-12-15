@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script defer>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("counter", () => ({
+          count: 5,
+          decrement() {
+            if (this.count > 0) this.count--;
+          },
+          increment() {
+            if (this.count < 10) this.count++;
+          },
+        }));
+      });
+    </script>
+  </head>
+  <body>
+    <div style="display: flex; gap: 1rem" x-data="counter">
+      <button @click="decrement" :disabled="count === 0">-</button>
+      <div x-text="count"></div>
+      <button @click="increment" :disabled="count === 10">+</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<html lang="en">
+  <head>
+    <title>Interpolation Demo</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script src="interpolate.js"></script>
+  </head>
+  <body x-data="{color: 'yellow', name: 'Mark'}">
+    <h1>Interpolation Demo</h1>
+    <div x-interp>
+      {{name}} likes the color {{color}}!
+      <div>
+        My name is {{name}}.
+        <div>The best color is {{color}}!</div>
+      </div>
+    </div>
+  </body>
+</html>
