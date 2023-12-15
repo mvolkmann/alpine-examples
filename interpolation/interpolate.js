@@ -1,19 +1,26 @@
 // TODO: Turn this into an official Alpine plugin.
-let defaultDelimiters = "{}";
-let re;
+
+// These characters must be escaped with a backslash in regular expressions.
+const escapes = "^.?*+[]()\\$";
 
 function getRegExp(delimiters) {
-  let len = delimiters.length;
+  let escaped = "";
+  for (const char of delimiters) {
+    if (escapes.includes(char)) escaped += "\\";
+    escaped += char;
+  }
+  let len = escaped.length;
   if (len % 2 !== 0) {
     throw new Error(`x-interp invalid delimiters: ${delimiters}`);
   }
   len /= 2;
-  const start = delimiters.slice(0, len);
-  const end = delimiters.slice(len);
-  return new RegExp(`${start}([^}]+)${end}`, "g");
+  const start = escaped.slice(0, len);
+  const end = escaped.slice(len);
+  // The ? in the regular expression makes it lazy (non-greedy).
+  return new RegExp(`${start}(.+?)${end}`, "g");
 }
 
-function updateText(el, evaluate) {
+function updateText(re, el, evaluate) {
   for (const child of el.childNodes) {
     const { nodeType } = child;
     if (nodeType === Node.TEXT_NODE) {
@@ -25,7 +32,7 @@ function updateText(el, evaluate) {
         (_, capture) => evaluate(capture) || capture
       );
     } else if (nodeType === Node.ELEMENT_NODE) {
-      updateText(child, evaluate); // recursive call
+      updateText(re, child, evaluate); // recursive call
     }
   }
 }
@@ -33,8 +40,9 @@ function updateText(el, evaluate) {
 document.addEventListener("alpine:init", () => {
   // TODO: Pass to this the delimiters to use, ex. '{{}}' or '{}'.
   // Have default delimiters, allow the default to be overridden, and allow per-use delimiters.
-  Alpine.directive("interp", (el, { expression }, { effect, evaluate }) => {
-    re = getRegExp(expression || defaultDelimiters);
-    effect(() => updateText(el, evaluate));
+  Alpine.directive("interp", (el, {}, { effect, evaluate }) => {
+    const re = getRegExp(Alpine.$interpolate.delimiters);
+    effect(() => updateText(re, el, evaluate));
   });
+  Alpine.$interpolate = { delimiters: "{}" };
 });

@@ -6,6 +6,12 @@
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
     <script src="interpolate.js"></script>
+    <!--script defer>
+      document.addEventListener("alpine:init", () => {
+        console.log("demo.html: setting default delimiters");
+        Alpine.$interpolate.delimiters = "{{}}";
+      });
+    </script-->
   </head>
   <body x-data="{color: 'yellow', name: 'Mark', x: 3, y: 4}">
     <h1>Interpolation Demo</h1>
@@ -16,7 +22,7 @@
         <div>The best color is {color}!</div>
       </div>
       <div>{x} * {y} = {x * y}</div>
-      <div>{wrong}</div>
+      <!--div>{wrong}</div-->
     </div>
     <div>Not interpolated {name} likes {color}</div>
 
