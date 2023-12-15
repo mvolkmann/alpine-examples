@@ -39,8 +39,12 @@ Instances can specify the following x-data properties:
   console.log("progress-bar.html: loaded first script");
 
   function ProgressBar(data) {
+    // Check for required properties.
+    if (typeof data.value === "undefined") {
+      throw new Error("progress-bar requires value");
+    }
+
     data.getBarStyle = () => {
-      data.validate();
       const { color, low, lowColor, high, highColor, value } = data;
       const barColor =
         typeof low !== "undefined" && lowColor && value <= low
@@ -54,16 +58,9 @@ Instances can specify the following x-data properties:
     };
 
     data.getPercent = () => {
-      data.validate();
       const minimum = typeof data.min === "undefined" ? 0 : data.min;
       const maximum = typeof data.max === "undefined" ? 100 : data.max;
       return Math.round(((data.value - minimum) / (maximum - minimum)) * 100);
-    };
-
-    data.validate = () => {
-      if (typeof data.value === "undefined") {
-        throw new Error("progress-bar requires value");
-      }
     };
   }
 </script>
