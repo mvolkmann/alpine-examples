@@ -17,6 +17,7 @@ function updateText(el, evaluate) {
 
 document.addEventListener("alpine:init", () => {
   // TODO: Pass to this the delimiters to use, ex. '{{}}' or '{}'.
+  // Have default delimiters, allow the default to be overridden, and allow per-use delimiters.
   Alpine.directive("interp", (el, {}, { effect, evaluate }) => {
     effect(() => updateText(el, evaluate));
   });

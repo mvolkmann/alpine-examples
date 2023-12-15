@@ -7,7 +7,7 @@
     ></script>
     <script src="interpolate.js"></script>
   </head>
-  <body x-data="{color: 'yellow', name: 'Mark'}">
+  <body x-data="{color: 'yellow', name: 'Mark', x: 3, y: 4}">
     <h1>Interpolation Demo</h1>
     <div x-interp>
       {name} likes the color {color}!
@@ -15,6 +15,7 @@
         My name is {name}.
         <div>The best color is {color}!</div>
       </div>
+      <div>{x} * {y} = {x * y}</div>
     </div>
     <div>Not interpolated {name} likes {color}</div>
 
