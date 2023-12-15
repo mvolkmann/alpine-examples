@@ -1,6 +1,14 @@
 <html lang="en">
   <head>
     <title>Include Demo</title>
+    <style>
+      .temperature {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+    </style>
     <!-- All included "components" can also use Alpine. -->
     <script
       defer
@@ -42,7 +50,13 @@
       }"
     ></div>
 
-    <input type="range" min="0" max="100" x-model="temperature" />
-    <span x-text="temperature"></span>
+    <label class="temperature">
+      Temperature
+      <input type="range" min="0" max="100" x-model="temperature" />
+      <span x-text="temperature"></span>
+    </label>
+
+    <!-- TODO: I want to prevent the CSS class progress-bar from being visible here. -->
+    <div class="progress-bg">TEST</div>
   </body>
 </html>

@@ -1,3 +1,4 @@
+<!-- TODO: These styles are NOT scoped to this component! -->
 <style>
   .progress-bg {
     background-color: gray;
@@ -19,6 +20,15 @@
     transform: translate(-50%, -50%);
   }
 </style>
+
+<script>
+  // TODO: Could this script be scoped to this component?
+  function ProgressBar() {
+    console.log("progress-bar.html ProgressBar: entered");
+  }
+</script>
+
+<!-- TODO: I don't like that there is so much JS in a string! -->
 <div
   class="progress-bg"
   x-data="{
@@ -29,6 +39,9 @@
     },
     getPercent() {
       return Math.round(value / (max - min) * 100);
+    },
+    init() {
+      ProgressBar();
     }
   }"
 >
