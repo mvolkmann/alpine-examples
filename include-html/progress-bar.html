@@ -1,14 +1,12 @@
 <!-- TODO: These styles are NOT scoped to this component! -->
 <style>
   .progress-bg {
-    background-color: gray;
     height: 2rem;
     position: relative;
     width: 20rem;
   }
   .progress-bar {
     height: 100%;
-    background-color: green;
   }
   .progress-value {
     color: white;
@@ -33,14 +31,17 @@
 <!-- TODO: I don't like that there is so much JS in a string! -->
 <div
   class="progress-bg"
+  :style="`background-color: ${bgColor || 'gray'}`"
   x-data="{
     getBarStyle() {
       const barColor =
-        value <= low ? lowColor : value >= high ? highColor : color;
+        typeof low !== 'undefined' && lowColor && value <= low ? lowColor :
+        typeof high !== 'undefined' && highColor && value >= high ? highColor :
+        color || 'green';
       return `background-color: ${barColor}; width: ${this.getPercent()}%`;
     },
     getPercent() {
-      return Math.round(value / (max - min) * 100);
+      return Math.round((value - min) / (max - min) * 100);
     },
     init() {
       ProgressBar();
