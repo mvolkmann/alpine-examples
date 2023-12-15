@@ -1,0 +1,37 @@
+<style>
+  .progress-bg {
+    background-color: gray;
+    height: 2rem;
+    position: relative;
+    width: 20rem;
+  }
+  .progress-bar {
+    height: 100%;
+    background-color: green;
+  }
+  .progress-value {
+    color: white;
+    font-family: sans-serif;
+    /* centers text in .progress-bg */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+<div
+  class="progress-bg"
+  x-data="{
+    getPercent() {
+      return Math.round(value / (max - min) * 100);
+    },
+    getBarStyle() {
+      const barColor =
+        value <= low ? lowColor : value >= high ? highColor : color;
+      return `background-color: ${barColor}; width: ${this.getPercent()}%`;
+    }
+  }"
+>
+  <div class="progress-bar" :style="getBarStyle"></div>
+  <div class="progress-value" x-text="getPercent"></div>
+</div>

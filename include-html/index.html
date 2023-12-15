@@ -8,7 +8,7 @@
     ></script>
     <script src="x-include.js"></script>
   </head>
-  <body x-data="{show: true}">
+  <body x-data="{show: true, value: 50}">
     <h1>Include Demo</h1>
     <div style="display: flex; gap: 1rem">
       <button @click="show = !show">Toggle</button>
@@ -25,5 +25,23 @@
          we "include" it multiple times. -->
     <div x-include="colors"></div>
     <div x-include="colors" x-data="{upper: true}"></div>
+
+    <div
+      x-include="progress-bar"
+      x-data="{
+        min: 0,
+        max: 100,
+        bgColor: 'gray',
+        color: 'green',
+        low: 40,
+        lowColor: 'blue',
+        high: 80,
+        highColor: 'red'
+      }"
+    ></div>
+
+    <!-- <input type="range" min="0" max="100" x-model="temperature" /> -->
+    <input type="range" min="0" max="100" x-model="value" />
+    <span x-text="value"></span>
   </body>
 </html>
