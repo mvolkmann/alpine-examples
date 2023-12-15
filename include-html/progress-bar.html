@@ -44,8 +44,8 @@ Instances can specify the following x-data properties:
       throw new Error("progress-bar requires value");
     }
 
-    data.getBarStyle = () => {
-      const { color, low, lowColor, high, highColor, value } = data;
+    data.getBarStyle = (d) => {
+      const { color, low, lowColor, high, highColor, value } = d;
       const barColor =
         typeof low !== "undefined" && lowColor && value <= low
           ? lowColor
@@ -54,11 +54,11 @@ Instances can specify the following x-data properties:
           : typeof color === "undefined"
           ? "green"
           : color;
-      return `background-color: ${barColor}; width: ${data.getPercent()}%`;
+      return `background-color: ${barColor}; width: ${data.getPercent(d)}%`;
     };
 
-    data.getPercent = () => {
-      const { min, max, value } = data;
+    data.getPercent = (d) => {
+      const { min, max, value } = d;
       const minimum = typeof min === "undefined" ? 0 : min;
       const maximum = typeof max === "undefined" ? 100 : max;
       return Math.round(((value - minimum) / (maximum - minimum)) * 100);
@@ -74,8 +74,8 @@ Instances can specify the following x-data properties:
   x-init="ProgressBar($data)"
   x-data
 >
-  <div class="progress-bar" :style="getBarStyle"></div>
-  <div class="progress-value" x-text="getPercent"></div>
+  <div class="progress-bar" :style="getBarStyle($data)"></div>
+  <div class="progress-value" x-text="getPercent($data)"></div>
 </div>
 
 <script>
