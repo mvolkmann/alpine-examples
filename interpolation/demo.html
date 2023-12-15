@@ -17,5 +17,9 @@
       </div>
     </div>
     <div>Not interpolated {name} likes {color}</div>
+
+    <!-- TODO: Why doesn't the x-interp directive run again when the value of name changes? -->
+    <button @click="name = name.toUpperCase()">Update</button>
+    <div x-text="name"></div>
   </body>
 </html>

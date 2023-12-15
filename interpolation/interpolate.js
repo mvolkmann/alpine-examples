@@ -1,9 +1,11 @@
+// TODO: Turn this into an official Alpine plugin.
 const RE = /{([^}]+)}/g;
 
 function updateText(el, evaluate) {
+  console.log("interpolate.js updateText: entered");
   for (const child of el.childNodes) {
-    const type = child.nodeType;
-    if (type === Node.TEXT_NODE) {
+    const { nodeType } = child;
+    if (nodeType === Node.TEXT_NODE) {
       const text = child.textContent;
       // TODO: How can you use a capture group to get only inside the braces?
       const newText = text.replaceAll(RE, (match) => {
@@ -11,7 +13,7 @@ function updateText(el, evaluate) {
         return evaluate(expression);
       });
       child.nodeValue = newText;
-    } else if (type === Node.ELEMENT_NODE) {
+    } else if (nodeType === Node.ELEMENT_NODE) {
       updateText(child, evaluate); // recursive call
     }
   }
