@@ -35,15 +35,7 @@ Instances can specify the following x-data properties:
 </style>
 
 <script>
-  // TODO: Could this script be scoped to this component?
   console.log("progress-bar.html: loaded first script");
-
-  function ProgressBar(data) {
-    // Check for required properties.
-    if (typeof data.value === "undefined") {
-      throw new Error("progress-bar requires value");
-    }
-  }
 
   function getBarStyle(data) {
     const { color, low, lowColor, high, highColor, value } = data;
@@ -64,6 +56,13 @@ Instances can specify the following x-data properties:
     const maximum = typeof max === "undefined" ? 100 : max;
     return Math.round(((value - minimum) / (maximum - minimum)) * 100);
   }
+
+  function validate(data) {
+    // Check for required properties.
+    if (typeof data.value === "undefined") {
+      throw new Error("progress-bar requires value");
+    }
+  }
 </script>
 
 <!-- x-data inside a component like this is for component methods.
@@ -71,7 +70,7 @@ Instances can specify the following x-data properties:
 <div
   class="progress-bg"
   :style="`background-color: ${typeof bgColor === 'undefined' ? 'gray' : bgColor}`"
-  x-init="ProgressBar($data)"
+  x-init="validate($data)"
   x-data
 >
   <div class="progress-bar" :style="getBarStyle($data)"></div>
