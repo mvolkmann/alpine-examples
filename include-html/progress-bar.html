@@ -58,9 +58,10 @@ Instances can specify the following x-data properties:
     };
 
     data.getPercent = () => {
-      const minimum = typeof data.min === "undefined" ? 0 : data.min;
-      const maximum = typeof data.max === "undefined" ? 100 : data.max;
-      return Math.round(((data.value - minimum) / (maximum - minimum)) * 100);
+      const { min, max, value } = data;
+      const minimum = typeof min === "undefined" ? 0 : min;
+      const maximum = typeof max === "undefined" ? 100 : max;
+      return Math.round(((value - minimum) / (maximum - minimum)) * 100);
     };
   }
 </script>
