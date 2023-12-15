@@ -16,9 +16,12 @@
         <div>The best color is {color}!</div>
       </div>
       <div>{x} * {y} = {x * y}</div>
+      <div>{wrong}</div>
     </div>
     <div>Not interpolated {name} likes {color}</div>
 
     <input x-model="name" />
+    <input type="number" x-model="x" />
+    <input type="number" x-model="y" />
   </body>
 </html>
