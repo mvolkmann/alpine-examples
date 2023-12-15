@@ -1,3 +1,18 @@
+<!--
+This component renders a progress bar.
+Instances can specify the following x-data properties:
+
+- min - minimum value; optional number; default 0
+- max - maximum value; optional number; default 100
+- value - value to display; required number
+- bgColor - background color of bar; optional string; default gray
+- color - foreground color of bar; optional string; default green
+- low - optional number; no default
+- lowColor - bar color if value <= low; optional string; no default
+- high - optional number; no default
+- highColor - bar color if value >= high; optional string; no default
+-->
+
 <!-- TODO: These styles are NOT scoped to this component! -->
 <style>
   .progress-bg {
@@ -20,42 +35,44 @@
 </style>
 
 <script>
+  // TODO: Could this script be scoped to this component?
   console.log("progress-bar.html: loaded first script");
 
-  // TODO: Could this script be scoped to this component?
-  function ProgressBar() {
-    console.log("progress-bar.html ProgressBar: entered");
+  function ProgressBar(data) {
+    data.getBarStyle = () => {
+      data.validate();
+      const { color, low, lowColor, high, highColor, value } = data;
+      const barColor =
+        typeof low !== "undefined" && lowColor && value <= low
+          ? lowColor
+          : typeof high !== "undefined" && highColor && value >= high
+          ? highColor
+          : typeof color === "undefined"
+          ? "green"
+          : color;
+      return `background-color: ${barColor}; width: ${data.getPercent()}%`;
+    };
+
+    data.getPercent = () => {
+      data.validate();
+      const minimum = typeof data.min === "undefined" ? 0 : data.min;
+      const maximum = typeof data.max === "undefined" ? 100 : data.max;
+      return Math.round(((data.value - minimum) / (maximum - minimum)) * 100);
+    };
+
+    data.validate = () => {
+      if (typeof data.value === "undefined") {
+        throw new Error("progress-bar requires value");
+      }
+    };
   }
 </script>
 
-<!-- TODO: I don't like that there is so much JS in a string! -->
 <div
   class="progress-bg"
   :style="`background-color: ${typeof bgColor === 'undefined' ? 'gray' : bgColor}`"
-  x-data="{
-    getBarStyle() {
-      this.validate();
-      const barColor =
-        typeof low !== 'undefined' && lowColor && value <= low ? lowColor :
-        typeof high !== 'undefined' && highColor && value >= high ? highColor :
-        typeof color === 'undefined' ? 'green' : color;
-      return `background-color: ${barColor}; width: ${this.getPercent()}%`;
-    },
-    getPercent() {
-      this.validate();
-      const minimum = typeof min === 'undefined' ? 0 : min;
-      const maximum = typeof max === 'undefined' ? 100 : max;
-      return Math.round((value - minimum) / (maximum - minimum) * 100);
-    },
-    init() {
-      ProgressBar();
-    },
-    validate() {
-      if (typeof value === 'undefined') {
-        throw new Error('progress-bar requires value');
-      }
-    }
-  }"
+  x-init="ProgressBar($data)"
+  x-data
 >
   <div class="progress-bar" :style="getBarStyle"></div>
   <div class="progress-value" x-text="getPercent"></div>
