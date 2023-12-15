@@ -8,7 +8,7 @@
     ></script>
     <script src="x-include.js"></script>
   </head>
-  <body x-data="{show: true, value: 50}">
+  <body x-data="{show: true, temperature: 50}">
     <h1>Include Demo</h1>
     <div style="display: flex; gap: 1rem">
       <button @click="show = !show">Toggle</button>
@@ -26,11 +26,13 @@
     <div x-include="colors"></div>
     <div x-include="colors" x-data="{upper: true}"></div>
 
+    <!-- "value" is a "getter" so it can use other state. -->
     <div
       x-include="progress-bar"
       x-data="{
         min: 0,
         max: 100,
+        get value() { return temperature; },
         bgColor: 'gray',
         color: 'green',
         low: 40,
@@ -40,8 +42,7 @@
       }"
     ></div>
 
-    <!-- <input type="range" min="0" max="100" x-model="temperature" /> -->
-    <input type="range" min="0" max="100" x-model="value" />
-    <span x-text="value"></span>
+    <input type="range" min="0" max="100" x-model="temperature" />
+    <span x-text="temperature"></span>
   </body>
 </html>

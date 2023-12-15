@@ -22,13 +22,13 @@
 <div
   class="progress-bg"
   x-data="{
-    getPercent() {
-      return Math.round(value / (max - min) * 100);
-    },
     getBarStyle() {
       const barColor =
         value <= low ? lowColor : value >= high ? highColor : color;
       return `background-color: ${barColor}; width: ${this.getPercent()}%`;
+    },
+    getPercent() {
+      return Math.round(value / (max - min) * 100);
     }
   }"
 >
