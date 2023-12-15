@@ -10,11 +10,12 @@
   <body x-data="{color: 'yellow', name: 'Mark'}">
     <h1>Interpolation Demo</h1>
     <div x-interp>
-      {{name}} likes the color {{color}}!
+      {name} likes the color {color}!
       <div>
-        My name is {{name}}.
-        <div>The best color is {{color}}!</div>
+        My name is {name}.
+        <div>The best color is {color}!</div>
       </div>
     </div>
+    <div>Not interpolated {name} likes {color}</div>
   </body>
 </html>
