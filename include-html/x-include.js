@@ -18,7 +18,7 @@ function includeHTML() {
   };
 
   const file = element.getAttribute(attribute);
-  xhr.open("GET", urlPrefix + file, true);
+  xhr.open("GET", `${urlPrefix}${file}.html`, true);
   xhr.send();
 }
 
