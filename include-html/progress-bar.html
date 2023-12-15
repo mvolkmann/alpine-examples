@@ -22,6 +22,8 @@
 </style>
 
 <script>
+  console.log("progress-bar.html: loaded first script");
+
   // TODO: Could this script be scoped to this component?
   function ProgressBar() {
     console.log("progress-bar.html ProgressBar: entered");
@@ -48,3 +50,7 @@
   <div class="progress-bar" :style="getBarStyle"></div>
   <div class="progress-value" x-text="getPercent"></div>
 </div>
+
+<script>
+  console.log("progress-bar.html: loaded second script");
+</script>

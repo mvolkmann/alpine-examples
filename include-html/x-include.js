@@ -16,29 +16,46 @@ function includeHTML() {
     // HTML5 does not dynamically add script tags using the innerHTML property!
     let text = xhr.responseText;
 
-    // Look for one script element in the text.
-    const startIndex = text.indexOf(scriptStart);
-    const endIndex = text.indexOf(scriptEnd);
-    const foundScript = startIndex !== -1 && endIndex > startIndex;
-    if (foundScript) {
-      // Get the text before, in, and after the script element.
-      const prefix = text.substring(0, startIndex);
-      const script = text.substring(startIndex + scriptStart.length, endIndex);
-      const suffix = text.substring(endIndex + scriptEnd.length);
+    let content = "";
+    let index = 0;
+    while (true) {
+      // Look for a script tag.
+      const startIndex = text.indexOf(scriptStart, index);
 
-      // Replace the element text with only the non-script text.
-      element.innerHTML = prefix + "\n" + suffix;
+      // TODO: Check for src attribute on script tag.
 
-      // Create a script element and add it before the element.
-      const scriptElement = document.createElement("script");
-      scriptElement.appendChild(document.createTextNode(script));
-      element.parentElement.insertBefore(scriptElement, element);
-    } else {
-      // No script element was found, so just use all of the text.
-      element.innerHTML = text;
+      if (startIndex !== -1) {
+        const endIndex = text.indexOf(scriptEnd, startIndex);
+        if (endIndex !== -1) {
+          // Get the text before and in the script element.
+          const prefix = text.substring(0, startIndex);
+          const script = text.substring(
+            startIndex + scriptStart.length,
+            endIndex
+          );
+
+          // Create a script element and add it before the element.
+          const scriptElement = document.createElement("script");
+          scriptElement.appendChild(document.createTextNode(script));
+          element.parentElement.insertBefore(scriptElement, element);
+
+          content += prefix;
+
+          index = endIndex + scriptEnd.length;
+        } else {
+          throw new Error("found script start tag, but not end tag");
+        }
+      } else {
+        content += text.substring(index);
+        break;
+      }
     }
 
+    // Replace the element text with all the non-script text.
+    element.innerHTML = content;
+
     element.removeAttribute(attribute);
+
     // Make a recursive call to process remaining elements
     // with the w3-include-html attribute.
     includeHTML();
