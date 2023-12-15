@@ -43,7 +43,6 @@ Instances can specify the following x-data properties:
     if (typeof data.value === "undefined") {
       throw new Error("progress-bar requires value");
     }
-
     data.getBarStyle = (d) => {
       const { color, low, lowColor, high, highColor, value } = d;
       const barColor =
@@ -54,15 +53,15 @@ Instances can specify the following x-data properties:
           : typeof color === "undefined"
           ? "green"
           : color;
-      return `background-color: ${barColor}; width: ${data.getPercent(d)}%`;
+      return `background-color: ${barColor}; width: ${getPercent(d)}%`;
     };
+  }
 
-    data.getPercent = (d) => {
-      const { min, max, value } = d;
-      const minimum = typeof min === "undefined" ? 0 : min;
-      const maximum = typeof max === "undefined" ? 100 : max;
-      return Math.round(((value - minimum) / (maximum - minimum)) * 100);
-    };
+  function getPercent(data) {
+    const { min, max, value } = data;
+    const minimum = typeof min === "undefined" ? 0 : min;
+    const maximum = typeof max === "undefined" ? 100 : max;
+    return Math.round(((value - minimum) / (maximum - minimum)) * 100);
   }
 </script>
 
