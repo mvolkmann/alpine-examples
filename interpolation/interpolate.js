@@ -23,28 +23,15 @@ function getRegExp(delimiters) {
 }
 
 function updateText(re, el, evaluate) {
-  console.log("updateText: el =", el);
-  const childNodes =
-    el.nodeName === "TEMPLATE" ? el.content.childNodes : el.childNodes;
-  console.log("updateText: childNodes =", childNodes);
-  for (const child of childNodes) {
-    console.log("interpolate.js updateText: child.nodeName =", child.nodeName);
+  for (const child of el.childNodes) {
     const { nodeType } = child;
-    console.log("updateText: child.nodeType =", nodeType);
     if (nodeType === Node.TEXT_NODE) {
-      console.log("======");
-      console.log("child.nodeValue =", child.nodeValue);
-      console.log("child.originalValue =", child.originalValue);
       if (!child.originalValue) child.originalValue = child.nodeValue;
       child.nodeValue = child.originalValue.replaceAll(
         re,
         // evaluate doesn't throw an error if the expression is invalid.
         // It outputs an error message and returns undefined.
-        // (_, capture) => evaluate(capture) || capture
-        (_, capture) => {
-          console.log("interpolate.js: capture =", capture);
-          return evaluate(capture) || capture;
-        }
+        (_, capture) => evaluate(capture) || capture
       );
     } else if (nodeType === Node.ELEMENT_NODE) {
       updateText(re, child, evaluate); // recursive call
