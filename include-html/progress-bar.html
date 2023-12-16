@@ -39,6 +39,9 @@ Instances can specify the following x-data properties:
 
 <script>
   // Placing all the functions in one global object reduces name conflicts.
+  // TODO: How can you avoid the error "Uncaught SyntaxError:
+  // Identifier 'ProgressBar' has already been declared"
+  // when this file is included more than once?
   const ProgressBar = {
     getBarStyle(data) {
       const { color, low, lowColor, high, highColor, value } = data;
