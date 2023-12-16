@@ -6,15 +6,18 @@
         display: flex;
         align-items: center;
         gap: 1rem;
+        margin-bottom: 1rem;
         margin-top: 1rem;
       }
     </style>
-    <!-- All included "components" can also use Alpine. -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/gh/mvolkmann/alpine-plugins@main/include.js"
+    ></script>
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    <script src="x-include.js"></script>
   </head>
   <body x-data="{show: true, temperature: 50}">
     <h1>Include Demo</h1>
@@ -34,8 +37,8 @@
     <div x-include="colors"></div>
     <div x-include="colors" x-data="{upper: true}"></div>
 
-    <!-- "value" is a "getter" so it can use other state. -->
-    x-data on instances like this is only for "props".
+    <!-- "value" is a "getter" so it can use other state.
+         x-data on instances like this is only for "props".  -->
     <div
       x-include="progress-bar"
       x-data="{
@@ -54,7 +57,7 @@
     </label>
 
     <!-- TODO: I want to prevent the CSS class progress-bar from being visible here. -->
-    <div class="progress-bg">TEST</div>
+    <!-- <div class="progress-bg">TEST</div> -->
 
     <div
       x-include="progress-bar"
