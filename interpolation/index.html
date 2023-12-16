@@ -6,10 +6,11 @@
          This is intentional to prevent GitHub from being used as a CDN.
          https://raw.githubusercontent.com/mvolkmann/alpine-plugins/main/interpolate.js
     -->
-    <script
+    <!-- <script
       defer
-      src="https://cdn.jsdelivr.net/gh/mvolkmann/alpine-plugins@main/interpolate.js"
-    ></script>
+      src="https://cdn.jsdelivr.net/gh/mvolkmann/alpine-plugins@v0.0.3/interpolate.js"
+    ></script> -->
+    <script defer src="interpolate.js"></script>
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
@@ -21,17 +22,25 @@
       });
     </script-->
   </head>
-  <body x-data="{color: 'yellow', name: 'Mark', x: 3, y: 4}">
+  <body
+    x-data="{color: 'yellow', colors: ['red', 'green', 'blue'], name: 'Mark', x: 3, y: 4}"
+  >
     <h1>Interpolation Demo</h1>
-    <div x-interp>
+    <div x-interpolate>
       {name} likes the color {color}!
-      <div>
-        My name is {name}.
-        <div>The best color is {color}!</div>
-      </div>
+
+      <div>first color is {colors[0]}</div>
+
+      <template x-for="color in colors">
+        <!-- This works. -->
+        <div x-text="color"></div>
+        <!-- This does not work. -->
+        <!-- <div>{color}</div> -->
+      </template>
+
       <div>{x} * {y} = {x * y}</div>
-      <!--div>{wrong}</div-->
     </div>
+
     <div>Not interpolated {name} likes {color}</div>
 
     <input x-model="name" />
