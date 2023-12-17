@@ -2,7 +2,7 @@
   <head>
     <script
       defer
-      src="https://cdn.jsdelivr.net/gh/mvolkmann/alpine-plugins@main/interpolate.js"
+      src="https://cdn.jsdelivr.net/gh/mvolkmann/alpine-plugins@v0.0.5/interpolate.js"
     ></script>
     <script
       defer
@@ -31,7 +31,7 @@
     <div
       x-data="{error: undefined, query: '', results: []}"
       x-init="$watch('query', query => search(query, $data))"
-      x-interp
+      x-interpolate
     >
       <label>
         Query
@@ -43,8 +43,8 @@
       </div>
       <template x-for="result of results" :key="result.objectID">
         <div>
-          <h4 style="margin-bottom: 0" x-text="result.title"></h4>
-          <a :href="result.url" target="_blank" x-text="result.url"></a>
+          <h4 style="margin-bottom: 0">{result.title}</h4>
+          <a :href="result.url" target="_blank">{result.url}</a>
         </div>
       </template>
     </div>
