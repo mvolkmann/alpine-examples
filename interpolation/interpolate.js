@@ -61,9 +61,11 @@ function updateText(re, el) {
 }
 
 document.addEventListener("alpine:init", () => {
-  if (!Alpine.$interpolateDelimiters) Alpine.$interpolateDelimiters = "{}";
+  if (typeof alpineInterpolateDelimiters === "undefined") {
+    alpineInterpolateDelimiters = "{}";
+  }
   Alpine.directive("interpolate", (el, {}, {}) => {
-    const re = getRegExp(Alpine.$interpolateDelimiters);
+    const re = getRegExp(alpineInterpolateDelimiters);
     updateText(re, el);
   });
 });
