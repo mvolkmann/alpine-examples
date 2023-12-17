@@ -45,6 +45,7 @@ function updateText(re, el) {
         newElements.push(subtext);
       }
 
+      console.log("interpolate.js : newElements =", newElements);
       child.after(...newElements);
       child.parentElement.removeChild(child);
     } else if (nodeType === Node.ELEMENT_NODE) {
@@ -60,9 +61,9 @@ function updateText(re, el) {
 }
 
 document.addEventListener("alpine:init", () => {
-  Alpine.$interpolate = { delimiters: "{}" };
+  if (!Alpine.$interpolateDelimiters) Alpine.$interpolateDelimiters = "{}";
   Alpine.directive("interpolate", (el, {}, {}) => {
-    const re = getRegExp(Alpine.$interpolate.delimiters);
+    const re = getRegExp(Alpine.$interpolateDelimiters);
     updateText(re, el);
   });
 });

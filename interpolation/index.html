@@ -15,19 +15,18 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
-    <!--script defer>
+    <!-- <script defer>
       document.addEventListener("alpine:init", () => {
-        console.log("demo.html: setting default delimiters");
-        Alpine.$interpolate.delimiters = "{{}}";
+        Alpine.$interpolateDelimiters = "{{}}";
       });
-    </script-->
+    </script> -->
   </head>
   <body
     x-data="{color: 'yellow', colors: ['red', 'green', 'blue'], name: 'Mark', x: 3, y: 4}"
   >
     <h1>Interpolation Demo</h1>
     <div x-interpolate>
-      {name} likes the color {color} the most!
+      {{name}} likes the color {color} the most!
 
       <div>first color is {colors[0]}</div>
 
