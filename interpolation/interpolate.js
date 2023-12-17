@@ -48,7 +48,13 @@ function updateText(re, el) {
       child.after(...newElements);
       child.parentElement.removeChild(child);
     } else if (nodeType === Node.ELEMENT_NODE) {
-      updateText(re, child); // recursive call
+      if (child.nodeName === "TEMPLATE") {
+        for (const subchild of child.content.childNodes) {
+          updateText(re, subchild); // recursive call
+        }
+      } else {
+        updateText(re, child); // recursive call
+      }
     }
   }
 }
