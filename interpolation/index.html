@@ -27,15 +27,12 @@
   >
     <h1>Interpolation Demo</h1>
     <div x-interpolate>
-      {name} likes the color {color}!
+      {name} likes the color {color} the most!
 
       <div>first color is {colors[0]}</div>
 
       <template x-for="color in colors">
-        <!-- This works. -->
-        <div x-text="color"></div>
-        <!-- This does not work. -->
-        <!-- <div>{color}</div> -->
+        <div>{color}</div>
       </template>
 
       <div>{x} * {y} = {x * y}</div>

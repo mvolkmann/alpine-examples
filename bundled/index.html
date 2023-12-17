@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      import Alpine from "alpinejs";
+      // window.Alpine = Alpine;
+      Alpine.start();
+    </script>
+  </head>
+  <body>
+    <div x-data="{ open: false }">
+      <button @click="open = !open">Toggle</button>
+
+      <span x-show="open">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia
+        aliquid amet optio commodi, sed nihil beatae fugiat enim officiis vitae
+        doloribus, at, eveniet veniam neque sunt possimus corrupti harum
+        doloremque.
+      </span>
+    </div>
+  </body>
+</html>
