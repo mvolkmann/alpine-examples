@@ -1,6 +1,10 @@
 <html>
   <head>
     <link rel="stylesheet" href="todo-list.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/gh/mvolkmann/alpine-plugins@v0.0.4/interpolate.js"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script
       defer
@@ -32,6 +36,17 @@
         data.todos = data.todos.filter((t) => t.id !== todoId);
       }
 
+      function filterTodos(todos, filter) {
+        switch (filter) {
+          case "completed":
+            return todos.filter((t) => t.done);
+          case "uncompleted":
+            return todos.filter((t) => !t.done);
+          default:
+            return todos;
+        }
+      }
+
       function updateStatus(todos) {
         const data = Alpine.store("data");
         const uncompletedCount = todos.filter((t) => !t.done).length;
@@ -39,10 +54,14 @@
       }
     </script>
   </head>
-  <body x-data x-effect="updateStatus($store.data.todos)">
+  <body
+    x-data="{filter: 'all'}"
+    x-effect="updateStatus($store.data.todos)"
+    x-interpolate
+  >
     <h1>To Do List</h1>
     <div>
-      <span x-text="$store.data.status"></span>
+      {$store.data.status}
       <button @click="archiveCompleted()">Archive Completed</button>
     </div>
     <form x-data="{text: ''}" @submit.prevent="addTodo(text); text = ''">
@@ -55,11 +74,30 @@
       />
       <button :disabled="text.trim().length === 0">Add</button>
     </form>
+    <div>
+      <label>
+        <input type="radio" name="filter" value="all" x-model="filter" />
+        All
+      </label>
+      <label>
+        <input type="radio" name="filter" value="completed" x-model="filter" />
+        Completed
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="filter"
+          value="uncompleted"
+          x-model="filter"
+        />
+        Uncompleted
+      </label>
+    </div>
     <ul>
-      <template x-for="todo in $store.data.todos">
+      <template x-for="todo in filterTodos($store.data.todos, filter)">
         <li class="todo-row">
           <input type="checkbox" x-model="todo.done" />
-          <span :class="{done: todo.done}" x-text="todo.text"></span>
+          <span :class="{done: todo.done}">{todo.text}</span>
           <button @click="deleteTodo(todo.id)">Delete</button>
         </li>
       </template>
