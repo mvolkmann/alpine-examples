@@ -1,0 +1,24 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebComponents Demo</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script src="./alpine-component.js" type="module"></script>
+    <script src="./greet-msg.js" type="module"></script>
+  </head>
+  <body x-data="{person1: 'Tami', person2: 'Mark'}">
+    <greet-msg></greet-msg>
+    <greet-msg name="Mark"></greet-msg>
+
+    <!-- Unfortunately all WebComponents require a closing tag. -->
+    <!-- This isn't really better that the x-include directive I created. -->
+    <alpine-component file="greeting" name="person1"></alpine-component>
+    <alpine-component file="greeting" name="person2"></alpine-component>
+    <alpine-component file="greeting" name="'Comet'"></alpine-component>
+    <button @click="person1 = 'Tamara'">Formal</button>
+  </body>
+</html>
