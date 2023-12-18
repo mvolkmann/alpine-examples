@@ -33,6 +33,7 @@
       }
 
       function updateStatus(todos) {
+        const data = Alpine.store("data");
         const uncompletedCount = todos.filter((t) => !t.done).length;
         data.status = `${uncompletedCount} of ${todos.length} remaining`;
       }
