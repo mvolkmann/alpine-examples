@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <div
+      id="data-holder"
+      :demo="demo"
+      style="display: flex; gap: 1rem"
+      x-data="{count: 0, demo: false}"
+    >
+      <button @click="if (count > 0) count--">-</button>
+      <span x-text="count"></span>
+      <button @click="if (count < 10) count++">+</button>
+      <button @click="demo = !demo">Toggle</button>
+    </div>
+    <script>
+      const holder = document.getElementById("data-holder");
+      console.log("mutation-observer.html: holder =", holder);
+      const observer = new MutationObserver((mutations) => {
+        console.log("mutations =", mutations);
+      });
+      // TODO: THIS IS NOT DETECTING CHANGES TO THE x-data ATTRIBUTE!
+      // TODO: Maybe that's because the same data object is always used.
+      // For a list of configuration options, see
+      // https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/observe
+      observer.observe(holder, {
+        attributes: true,
+        attributeOldValue: true,
+        childList: true,
+        subtree: true,
+      });
+    </script>
+  </body>
+</html>
