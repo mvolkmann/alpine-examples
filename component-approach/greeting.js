@@ -10,7 +10,8 @@ document.addEventListener("alpine:init", () => {
     }
   );
 
-  Alpine.directive("greet", (el, { expression }, {}) => {
-    el.textContent = `Hello, ${expression || "World"}!`;
+  Alpine.directive("greet", (el, { value, expression }, {}) => {
+    const text = `Hello, ${expression || "World"}!`;
+    el.textContent = value === "upper" ? text.toUpperCase() : text;
   });
 });
