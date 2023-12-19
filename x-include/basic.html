@@ -1,0 +1,30 @@
+<html lang="en">
+  <head>
+    <title>Include Demo</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/gh/mvolkmann/alpine-plugins@v0.0.5/include.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body x-data="{show: true}">
+    <h1>Include Demo</h1>
+    <div style="display: flex; gap: 1rem">
+      <button @click="show = !show">Toggle</button>
+      <span x-show="show">
+        <!-- The file greeting.html defines a component.
+             We can pass scoped data to it using x-data. -->
+        <span x-include="greeting" x-data="{name: 'World'}"></span>
+      </span>
+    </div>
+
+    <!-- The file colors.html defines a component.
+         The file will only be loaded once even though
+         we "include" it multiple times. -->
+    <div x-include="colors"></div>
+    <div x-include="colors" x-data="{upper: true}"></div>
+  </body>
+</html>
