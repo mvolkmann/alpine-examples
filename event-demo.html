@@ -6,12 +6,10 @@
     ></script>
   </head>
   <body>
-    <div x-data="{eventData: {}}" x-on:my-event="eventData = $event.detail">
-      <button x-on:click="$dispatch('my-event', {foo: 'bar'})">
-        Send Event
-      </button>
+    <div x-data="{eventData: {}}" @my-event="eventData = $event.detail">
+      <button @click="$dispatch('my-event', {foo: 'bar'})">Send Event</button>
       <div x-text="JSON.stringify(eventData)"></div>
-      <div x-on:my-event.window="console.log($event)"></div>
+      <div @my-event.window="console.log($event)"></div>
     </div>
   </body>
 </html>
