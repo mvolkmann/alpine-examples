@@ -4,10 +4,53 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
+    <script defer>
+      const shared = {
+        v1: 8,
+        v2: 14,
+        reset() {
+          this.v1 = 0;
+          this.v2 = 0;
+        },
+      };
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("shared", () => shared);
+      });
+      function alertSum() {
+        alert(shared.v1 + shared.v2);
+      }
+    </script>
   </head>
   <body>
+    <!-- x-data here just enables use of Alpine directives
+         in this element and descendants. -->
     <div x-data>
       <button @click="alert('got click')">Click</button>
+    </div>
+
+    <!-- x-data here defines the Alpine variable v1.
+         The variable v2 is not in scope. -->
+    <div x-data="{v1: 7}">
+      <div>v1 = <span x-text="v1"></span></div>
+      <!-- x-data here defines the Alpine variable v2.
+           The variable v1 is also in scope. -->
+      <div x-data="{v2: 13}">
+        <div>v1 = <span x-text="v1"></span></div>
+        <div>v2 = <span x-text="v2"></span></div>
+        <div>sum = <span x-text="v1 + v2"></span></div>
+      </div>
+    </div>
+
+    <!-- x-data here uses a named set of variables defined with Alpine.data.
+         This allows JavaScript code to share access to them. -->
+    <div x-data="shared">
+      <div>v1 = <span x-text="v1"></span></div>
+      <div>v2 = <span x-text="v2"></span></div>
+      <div>sum = <span x-text="v1 + v2"></span></div>
+      <button @click="v1++">Increment v1</button>
+      <button @click="v2++">Increment v2</button>
+      <button @click="reset()">Reset</button>
+      <button @click="alertSum()">Alert Sum</button>
     </div>
   </body>
 </html>

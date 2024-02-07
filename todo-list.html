@@ -13,6 +13,10 @@
     <script>
       let lastId = 0;
 
+      function demo() {
+        alert("in demo");
+      }
+
       document.addEventListener("alpine:init", () => {
         Alpine.store("data", {
           status: "",
@@ -57,6 +61,7 @@
   <body
     x-data="{filter: 'all'}"
     x-effect="updateStatus($store.data.todos)"
+    x-init="demo"
     x-interpolate
   >
     <h1>To Do List</h1>
