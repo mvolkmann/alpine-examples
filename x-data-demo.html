@@ -19,6 +19,12 @@
       function alertSum() {
         alert(shared.v1 + shared.v2);
       }
+
+      function incrementBoth(data) {
+        console.log("x-data-demo.html incrementBoth: data =", data);
+        data.outer++;
+        data.inner++;
+      }
     </script>
   </head>
   <body>
@@ -51,6 +57,14 @@
       <button @click="v2++">Increment v2</button>
       <button @click="reset()">Reset</button>
       <button @click="alertSum()">Alert Sum</button>
+    </div>
+
+    <div x-data="{outer: 1}">
+      <div>outer = <span x-text="outer"></span></div>
+      <div x-data="{inner: 1}">
+        <div>inner = <span x-text="inner"></span></div>
+        <button @click="incrementBoth($data)">Increment Both</button>
+      </div>
     </div>
   </body>
 </html>
