@@ -7,24 +7,19 @@
     <style>
       .toggle {
         --on-color: green;
+        --size: 2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
         cursor: pointer;
-        display: inline-block;
-      }
-
-      .toggle-label {
-        margin-left: 5px;
-        position: relative;
-        top: 2px;
       }
 
       .toggle-switch {
-        display: inline-block;
-        background: #ccc;
-        border-radius: 16px;
-        width: 58px;
-        height: 32px;
+        background: gray;
+        border-radius: calc(var(--size) / 2);
+        width: calc(var(--size) * 1.8);
+        height: var(--size);
         position: relative;
-        vertical-align: middle;
         transition: background 0.25s;
 
         &:before,
