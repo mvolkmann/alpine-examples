@@ -13,12 +13,12 @@
       .toggle {
         --off-bg: gray;
         --on-bg: green;
-        --thumb-bg: lightgray;
-        --thumb-size: calc(var(--size) - var(--padding) * 2);
         --padding: 0.25rem;
-        --size: 2rem;
+        --switch-height: 2rem;
+        --switch-width: calc(var(--switch-height) * 1.8);
+        --thumb-bg: lightgray;
+        --thumb-size: calc(var(--switch-height) - var(--padding) * 2);
         --transition-duration: 0.3s;
-        --switch-width: calc(var(--size) * 1.8);
 
         display: inline-flex;
         align-items: center;
@@ -28,8 +28,8 @@
 
       .toggle-switch {
         background-color: var(--off-bg);
-        border-radius: calc(var(--size) / 2);
-        height: var(--size);
+        border-radius: calc(var(--switch-height) / 2);
+        height: var(--switch-height);
         position: relative;
         transition: background var(--transition-duration);
         width: var(--switch-width);
@@ -53,7 +53,9 @@
           background-color: var(--on-bg);
           &:before {
             /* checked position */
-            left: calc(var(--switch-width) - var(--size) + var(--padding));
+            left: calc(
+              var(--switch-width) - var(--switch-height) + var(--padding)
+            );
           }
         }
       }
