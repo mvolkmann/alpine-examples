@@ -6,6 +6,7 @@
     <title>Toggle Demo</title>
     <style>
       .toggle {
+        --on-color: green;
         cursor: pointer;
         display: inline-block;
       }
@@ -45,7 +46,7 @@
         }
 
         .toggle-thumb:checked + & {
-          background: green;
+          background: var(--on-color);
           &:before {
             left: 30px;
           }
