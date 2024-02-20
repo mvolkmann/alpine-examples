@@ -7,7 +7,10 @@
     <style>
       .toggle {
         --on-color: green;
+        --padding: 0.25rem;
         --size: 2rem;
+        --width: calc(var(--size) * 1.8);
+
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
@@ -17,7 +20,7 @@
       .toggle-switch {
         background: gray;
         border-radius: calc(var(--size) / 2);
-        width: calc(var(--size) * 1.8);
+        width: var(--width);
         height: var(--size);
         position: relative;
         transition: background 0.25s;
@@ -35,15 +38,15 @@
           width: 24px;
           height: 24px;
           position: absolute;
-          top: 4px;
-          left: 4px;
+          top: var(--padding);
+          left: var(--padding);
           transition: left 0.25s;
         }
 
         .toggle-thumb:checked + & {
           background: var(--on-color);
           &:before {
-            left: 30px;
+            left: calc(var(--width) - var(--size) + var(--padding));
           }
         }
       }
