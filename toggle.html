@@ -9,6 +9,7 @@
         font-family: sans-serif;
       }
 
+      /* This contains the switch and the label. */
       .toggle {
         --off-bg: gray;
         --on-bg: green;
@@ -16,7 +17,8 @@
         --thumb-size: calc(var(--size) - var(--padding) * 2);
         --padding: 0.25rem;
         --size: 2rem;
-        --width: calc(var(--size) * 1.8);
+        --transition-duration: 0.3s;
+        --switch-width: calc(var(--size) * 1.8);
 
         display: inline-flex;
         align-items: center;
@@ -29,14 +31,14 @@
         border-radius: calc(var(--size) / 2);
         height: var(--size);
         position: relative;
-        transition: background 0.25s;
-        width: var(--width);
+        transition: background var(--transition-duration);
+        width: var(--switch-width);
 
         &:before {
           content: "";
           background-color: var(--thumb-bg);
           border-radius: 50%;
-          transition: left 0.25s;
+          transition: left var(--transition-duration);
 
           position: absolute;
           top: var(--padding);
@@ -51,7 +53,7 @@
           background-color: var(--on-bg);
           &:before {
             /* checked position */
-            left: calc(var(--width) - var(--size) + var(--padding));
+            left: calc(var(--switch-width) - var(--size) + var(--padding));
           }
         }
       }
