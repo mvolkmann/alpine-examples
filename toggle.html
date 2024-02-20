@@ -13,6 +13,7 @@
         --off-bg: gray;
         --on-bg: green;
         --thumb-bg: lightgray;
+        --thumb-size: calc(var(--size) - var(--padding) * 2);
         --padding: 0.25rem;
         --size: 2rem;
         --width: calc(var(--size) * 1.8);
@@ -31,35 +32,35 @@
         transition: background 0.25s;
         width: var(--width);
 
-        &:before,
-        &:after {
-          content: "";
-        }
-
         &:before {
-          display: block;
+          content: "";
           background-color: var(--thumb-bg);
           border-radius: 50%;
-          box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
-          width: 24px;
-          height: 24px;
+          transition: left 0.25s;
+
           position: absolute;
           top: var(--padding);
-          left: var(--padding);
-          transition: left 0.25s;
+          left: var(--padding); /* unchecked position */
+
+          width: var(--thumb-size);
+          height: var(--thumb-size);
         }
 
         /* The thumb is a preceding sibling to the switch. */
         .toggle-thumb:checked + & {
           background-color: var(--on-bg);
           &:before {
+            /* checked position */
             left: calc(var(--width) - var(--size) + var(--padding));
           }
         }
       }
 
+      /* The thumb input is not rendered. Instead, the
+         before content of the switch is used for the thumb. */
       .toggle-thumb {
         position: absolute;
+        visibility: hidden;
       }
     </style>
   </head>
