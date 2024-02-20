@@ -10,11 +10,6 @@
         display: inline-block;
       }
 
-      .toggle-checkbox {
-        position: absolute;
-        visibility: hidden;
-      }
-
       .toggle-label {
         margin-left: 5px;
         position: relative;
@@ -30,10 +25,12 @@
         position: relative;
         vertical-align: middle;
         transition: background 0.25s;
+
         &:before,
         &:after {
           content: "";
         }
+
         &:before {
           display: block;
           background: linear-gradient(to bottom, #fff 0%, #eee 100%);
@@ -46,16 +43,18 @@
           left: 4px;
           transition: left 0.25s;
         }
-        .toggle:hover &:before {
-          background: linear-gradient(to bottom, #fff 0%, #fff 100%);
-          box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
-        }
-        .toggle-checkbox:checked + & {
+
+        .toggle-thumb:checked + & {
           background: green;
           &:before {
             left: 30px;
           }
         }
+      }
+
+      .toggle-thumb {
+        position: absolute;
+        visibility: hidden;
       }
     </style>
   </head>
@@ -63,7 +62,7 @@
     <h1>Toggle Demo</h1>
 
     <label class="toggle">
-      <input class="toggle-checkbox" type="checkbox" checked />
+      <input class="toggle-thumb" type="checkbox" checked />
       <div class="toggle-switch"></div>
       <span class="toggle-label">Bluetooth</span>
     </label>
