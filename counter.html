@@ -7,9 +7,9 @@
   </head>
   <body>
     <div style="display: flex; gap: 1rem" x-data="{count: 0}">
-      <button @click="if (count > 0) count--">-</button>
+      <button @click="count--" :disabled="count === 0">-</button>
       <span x-text="count"></span>
-      <button @click="if (count < 10) count++">+</button>
+      <button @click="count++" :disabled="count === 10">+</button>
     </div>
   </body>
 </html>

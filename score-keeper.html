@@ -16,9 +16,11 @@
         team2: "49ers",
         // This is like a computed property.
         report() {
-          return this.score1 > this.score2
+          const s1 = Number(this.score1);
+          const s2 = Number(this.score2);
+          return s1 > s2
             ? `The ${this.team1} are winning.`
-            : this.score2 > this.score1
+            : s2 > s1
             ? `The ${this.team2} are winning.`
             : "The score is tied.";
         },
