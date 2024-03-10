@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script>
+      function data() {
+        return {
+          colors: [
+            { name: "blue", primary: true },
+            { name: "green", primary: false },
+            { name: "orange", primary: false },
+            { name: "purple", primary: false },
+            { name: "red", primary: true },
+            { name: "yellow", primary: true },
+          ],
+        };
+      }
+    </script>
+  </head>
+  <body style="background-color: gray" x-data="data">
+    <template x-for="color in colors">
+      <template x-if="color.primary">
+        <div
+          :style="{color: color.name, fontSize: '2rem'}"
+          x-text="color.name"
+        ></div>
+      </template>
+    </template>
+  </body>
+</html>

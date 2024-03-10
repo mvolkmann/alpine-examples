@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script>
+      function data() {
+        const colorMap = new Map();
+        colorMap.set("red", "#FF0000");
+        colorMap.set("green", "#00FF00");
+        colorMap.set("blue", "#0000FF");
+        return {
+          colorMap,
+          keys: colorMap.keys(), // an iterator, not an array
+        };
+      }
+
+      const keys = data().keys;
+      console.log("iterate.html : keys =", keys);
+      console.log("iterate.html : Alpine.version =", Alpine.version);
+    </script>
+  </head>
+  <body x-data="data">
+    <!-- This does not work. -->
+    <!-- <template x-for="color in keys"> -->
+    <!-- This does work. -->
+    <template x-for="color in Array.from(keys)">
+      <div x-text="color"></div>
+      <div x-text="colorMap[color]"></div>
+    </template>
+  </body>
+</html>

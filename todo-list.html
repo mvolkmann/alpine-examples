@@ -1,6 +1,10 @@
 <html>
   <head>
     <link rel="stylesheet" href="todo-list.css" />
+    <!-- This Alpline plugin adds support for the
+         x-interpolate directive which enables interpolation
+         of JavaScript expressions inside text content.
+         It provides an alternative to using the x-text directive. -->
     <script
       defer
       src="https://cdn.jsdelivr.net/gh/mvolkmann/alpine-plugins@v0.0.4/interpolate.js"
@@ -12,10 +16,6 @@
     ></script>
     <script>
       let lastId = 0;
-
-      function demo() {
-        alert("in demo");
-      }
 
       document.addEventListener("alpine:init", () => {
         Alpine.store("data", {
@@ -61,7 +61,6 @@
   <body
     x-data="{filter: 'all'}"
     x-effect="updateStatus($store.data.todos)"
-    x-init="demo"
     x-interpolate
   >
     <h1>To Do List</h1>
