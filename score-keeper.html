@@ -8,22 +8,24 @@
     ></script>
     <script>
       const getData = () => ({
-        dislikeColor: "white",
-        likeColor: "red",
-        score1: 25,
-        score2: 22,
-        team1: "Chiefs",
-        team2: "49ers",
+        team1: {name: 'Chiefs', score: 25},
+        team2: {name: '49ers', score: 22},
+        color(like) {
+          return like ? 'red' : 'white';
+        },
+        heart(like) {
+          return like ? '❤️' : '🤍';
+        },
         // This is like a computed property.
         report() {
-          const s1 = Number(this.score1);
-          const s2 = Number(this.score2);
+          const s1 = Number(this.team1.score);
+          const s2 = Number(this.team2.score);
           return s1 > s2
-            ? `The ${this.team1} are winning.`
+            ? `The ${this.team1.name} are winning.`
             : s2 > s1
-            ? `The ${this.team2} are winning.`
-            : "The score is tied.";
-        },
+            ? `The ${this.team2.name} are winning.`
+            : 'The score is tied.';
+        }
       });
     </script>
   </head>
@@ -32,22 +34,22 @@
       <div id="report" x-text="report"></div>
       <section
         class="column team"
-        :style="`border-color: ${like ? likeColor : dislikeColor}`"
+        :style="`border-color: ${color(like)}`"
         x-data="{like: false}"
       >
-        <label>Team <input type="text" x-model="team1" /></label>
-        <label>Score <input type="number" x-model="score1" /></label>
-        <button @click="like = !like" x-text="like ? '❤️' : '🤍'"></button>
+        <label>Team <input type="text" x-model="team1.name" /></label>
+        <label>Score <input type="number" x-model="team1.score" /></label>
+        <button @click="like = !like" x-text="heart(like)"></button>
       </section>
       <!-- We could avoid this repetition by creating a web component. -->
       <section
         class="column team"
-        :style="`border-color: ${like ? likeColor : dislikeColor}`"
+        :style="`border-color: ${color(like)}`"
         x-data="{like: false}"
       >
-        <label>Team <input type="text" x-model="team2" /></label>
-        <label>Score <input type="number" x-model="score2" /></label>
-        <button @click="like = !like" x-text="like ? '❤️' : '🤍'"></button>
+        <label>Team <input type="text" x-model="team2.name" /></label>
+        <label>Score <input type="number" x-model="team2.score" /></label>
+        <button @click="like = !like" x-text="heart(like)"></button>
       </section>
     </main>
   </body>
