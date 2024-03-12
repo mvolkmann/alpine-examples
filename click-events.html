@@ -6,7 +6,7 @@
     ></script>
     <script>
       function handler() {
-        alert("Got click.");
+        alert('Got click');
       }
     </script>
   </head>
@@ -14,6 +14,7 @@
     <div x-data>
       <button @click="handler">First</button>
       <button @click="handler()">Second</button>
+      <button @click="alert('Got click')">Third</button>
     </div>
   </body>
 </html>
