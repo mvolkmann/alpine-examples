@@ -17,43 +17,43 @@
     <script>
       let lastId = 0;
 
-      document.addEventListener("alpine:init", () => {
-        Alpine.store("data", {
-          status: "",
-          todos: Alpine.$persist([]).as("todos"),
+      document.addEventListener('alpine:init', () => {
+        Alpine.store('data', {
+          status: '',
+          todos: Alpine.$persist([]).as('todos')
         });
       });
 
       function addTodo(text) {
-        const data = Alpine.store("data");
-        data.todos.push({ id: ++lastId, text: text.trim(), done: false });
+        const data = Alpine.store('data');
+        data.todos.push({id: ++lastId, text: text.trim(), done: false});
       }
 
       // This keeps only the todos that are not done.
       function archiveCompleted() {
-        const data = Alpine.store("data");
-        data.todos = data.todos.filter((t) => !t.done);
+        const data = Alpine.store('data');
+        data.todos = data.todos.filter(t => !t.done);
       }
 
       function deleteTodo(todoId) {
-        const data = Alpine.store("data");
-        data.todos = data.todos.filter((t) => t.id !== todoId);
+        const data = Alpine.store('data');
+        data.todos = data.todos.filter(t => t.id !== todoId);
       }
 
       function filterTodos(todos, filter) {
         switch (filter) {
-          case "completed":
-            return todos.filter((t) => t.done);
-          case "uncompleted":
-            return todos.filter((t) => !t.done);
+          case 'completed':
+            return todos.filter(t => t.done);
+          case 'uncompleted':
+            return todos.filter(t => !t.done);
           default:
             return todos;
         }
       }
 
       function updateStatus(todos) {
-        const data = Alpine.store("data");
-        const uncompletedCount = todos.filter((t) => !t.done).length;
+        const data = Alpine.store('data');
+        const uncompletedCount = todos.filter(t => !t.done).length;
         data.status = `${uncompletedCount} of ${todos.length} remaining`;
       }
     </script>
