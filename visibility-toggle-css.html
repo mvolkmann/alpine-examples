@@ -1,0 +1,36 @@
+<!-- This is like visibility-toggle.html,
+     but uses CSS instead of Alpine. -->
+<html>
+  <head>
+    <style>
+      #greeting {
+        font-size: 3rem;
+        margin-top: 4px;
+        opacity: 0;
+        transition: opacity 1s;
+      }
+
+      #show-checkbox {
+        display: none;
+      }
+
+      #toggle-btn {
+        background-color: lightgray;
+        border: 1px solid black;
+        cursor: pointer;
+        padding: 2px 8px;
+      }
+
+      body:has(#toggle-btn > :checked) #greeting {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <label id="toggle-btn">
+      <input id="show-checkbox" type="checkbox" />
+      Toggle
+    </label>
+    <div id="greeting">Hello, World!</div>
+  </body>
+</html>
