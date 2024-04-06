@@ -15,32 +15,22 @@
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
     <script>
-      let lastId = 0;
-
-      document.addEventListener('alpine:init', () => {
-        Alpine.store('data', {
-          status: '',
-          todos: Alpine.$persist([]).as('todos')
-        });
-      });
-
-      function addTodo(text) {
-        const data = Alpine.store('data');
-        data.todos.push({id: ++lastId, text: text.trim(), done: false});
+      function addTodo(data, text) {
+        ++data.lastId;
+        data.todos.push({id: data.lastId, text: text.trim(), done: false});
       }
 
       // This keeps only the todos that are not done.
-      function archiveCompleted() {
-        const data = Alpine.store('data');
+      function archiveCompleted(data) {
         data.todos = data.todos.filter(t => !t.done);
       }
 
-      function deleteTodo(todoId) {
-        const data = Alpine.store('data');
+      function deleteTodo(data, todoId) {
         data.todos = data.todos.filter(t => t.id !== todoId);
       }
 
-      function filterTodos(todos, filter) {
+      function filterTodos(data, filter) {
+        const {todos} = data;
         switch (filter) {
           case 'completed':
             return todos.filter(t => t.done);
@@ -51,24 +41,29 @@
         }
       }
 
-      function updateStatus(todos) {
-        const data = Alpine.store('data');
+      function updateStatus(data) {
+        const {todos} = data;
         const uncompletedCount = todos.filter(t => !t.done).length;
         data.status = `${uncompletedCount} of ${todos.length} remaining`;
       }
     </script>
   </head>
   <body
-    x-data="{filter: 'all'}"
-    x-effect="updateStatus($store.data.todos)"
+    x-data="{
+      filter: 'all',
+      lastId: Alpine.$persist(0).as('lastId'),
+      status: '',
+      todos: Alpine.$persist([]).as('todos')
+    }"
+    x-effect="updateStatus($data)"
     x-interpolate
   >
     <h1>To Do List</h1>
     <div>
-      {$store.data.status}
-      <button @click="archiveCompleted()">Archive Completed</button>
+      {status}
+      <button @click="archiveCompleted($data)">Archive Completed</button>
     </div>
-    <form x-data="{text: ''}" @submit.prevent="addTodo(text); text = ''">
+    <form x-data="{text: ''}" @submit.prevent="addTodo($data, text); text = ''">
       <input
         autofocus
         placeholder="enter new todo here"
@@ -98,11 +93,11 @@
       </label>
     </div>
     <ul>
-      <template x-for="todo in filterTodos($store.data.todos, filter)">
+      <template x-for="todo in filterTodos($data, filter)">
         <li class="todo-row">
           <input type="checkbox" x-model="todo.done" />
           <span :class="{done: todo.done}">{todo.text}</span>
-          <button @click="deleteTodo(todo.id)">Delete</button>
+          <button @click="deleteTodo($data, todo.id)">Delete</button>
         </li>
       </template>
     </ul>
